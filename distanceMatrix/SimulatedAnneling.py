@@ -60,7 +60,7 @@ def decay(T):
 def var_n_iter(n):
     return n
 
-def stopping_criteria(problema, melhor, T, n_iter):
+def stopping_criteria(problem, melhor, T, n_iter):
     #Para a procura quando T tiver aquele dado valor
     return T < 1e-3
 
@@ -111,7 +111,7 @@ best = simulated_annealing(
     n_iter = 100,
     var_n_iter = var_n_iter,
     neighbor = neighbor,
-    stopping_criteria = criterio_de_paragem)
+    stopping_criteria = stopping_criteria)
 
 print("Melhor solução encontrada:", best)
 print("Valor da função:", problem.distancia(best))
