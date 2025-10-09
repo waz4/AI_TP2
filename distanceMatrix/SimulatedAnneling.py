@@ -7,6 +7,7 @@ m = [cities, distances]
 
 class TSPProblem:
     def __init__(self, matrix):
+        self.cidades, self.distances = dm.read_distance_matrix("distances")
         self.matrix = matrix
         self.cities = dm.get_all_cities(matrix)
         self.num_cities = len(self.cidades)
@@ -25,13 +26,28 @@ class Problem:
         # Exemplo simples: função quadrática // alterar para a distanceMatrix
         return sol**2
 
-def initial_sol(problem):
-    #isto é para manter
-    return random.uniform(-10,10)
+def initial_sol(cities):
+    return [random.randint(0, len(cities)) for _ in range(10)]
 
-def neighbor(sol):
-    #isto é para manter
-    return sol + random.uniform(-1,1)
+def neighbor(cities, j):
+    # Remover se quisermos q o neighbor seja random, mas acho q devia ser outro metodo
+    # i = random.randint(0, len(cities) - 3)
+    # j = random.randint(i + 1, len(cities) - 1)
+    i = 0
+    if i == j:
+        j = i + 2
+    j = j % (len(cities) + 1)
+    
+    ret = cities.copy()
+    
+    temp = ret[i:j]
+    temp_array = temp.copy()
+    temp_array.reverse()
+    
+    for k in range(j):
+      ret[i + k] = temp_array[k]
+    
+    return ret
 
 def initial_T(problem):
     #pode-se alterar para algum outro valor/função que decida que valor a temperatura deve ter
@@ -91,12 +107,11 @@ best = simulated_annealing(
     problem,
     decay,
     initial_T,
-    initial_sol,
+    make_initial_sol=initial_sol,
     n_iter = 100,
     var_n_iter = var_n_iter,
     neighbor = neighbor,
-    criterio_de_paragem = stopping_criteria)
-
+    stopping_criteria = criterio_de_paragem)
 
 print("Melhor solução encontrada:", best)
 print("Valor da função:", problem.distancia(best))
