@@ -1,11 +1,11 @@
 import random, DistanceMatrix
 
 # Algoritmo de vizinhança do guiao2: https://ia.ssdi.di.fct.unl.pt/guiao2.html
-def neighbor(cities, j):
+def neighbor(cities):
     # Remover se quisermos q o neighbor seja random, mas acho q devia ser outro metodo
-    # i = random.randint(0, len(cities) - 3)
-    # j = random.randint(i + 1, len(cities) - 1)
-    i = 0
+    i = random.randint(0, len(cities) - 3)
+    j = random.randint(i + 1, len(cities) - 1)
+    # i = 0
     
     if i == j:
         j = i + 2
@@ -18,7 +18,7 @@ def neighbor(cities, j):
     temp_array = temp.copy()
     temp_array.reverse()
     
-    for k in range(j):
+    for k in range(len(temp_array)):
       ret[i + k] = temp_array[k]
     
     return ret
@@ -29,10 +29,9 @@ def neighbor(cities, j):
 matrix = DistanceMatrix.read_distance_matrix("distances")
 cities = DistanceMatrix.get_all_cities(matrix)
 
-cities = ["1", "2", "3"];
 # print(cities)
 
-for i in range(0, len(cities) + 1):
-  print(neighbor(cities, i))
+for i in range(0, len(cities) + 4):
+  print(neighbor(cities))
 
 print()

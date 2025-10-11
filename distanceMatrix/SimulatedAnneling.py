@@ -1,3 +1,5 @@
+# Neighor random? y é random
+
 import math
 import random
 import DistanceMatrix as dm
@@ -7,11 +9,12 @@ m = [cities, distances]
 
 class TSPProblem:
     def __init__(self, matrix):
-        self.cidades, self.distances = dm.read_distance_matrix("distances")
+
         self.matrix = matrix
         self.cities = dm.get_all_cities(matrix)
-        self.num_cities = len(self.cidades)
+        self.num_cities = len(self.cities)
 
+    # Route é um array de cidades
     def distance(self, route):
         total = 0
         for i in range(len(route) - 1):
@@ -21,21 +24,22 @@ class TSPProblem:
 
 problem = TSPProblem(m)
 
-class Problem:
-    def distance(self, sol):
-        # Exemplo simples: função quadrática // alterar para a distanceMatrix
-        return sol**2
-
+# Mudar para fazer com subsets das cidades
 def initial_sol(cities):
     return [random.randint(0, len(cities)) for _ in range(10)]
 
-def neighbor(cities, j):
+# Verificar se e circlar
+# TODO FIX THIS SHIT
+def neighbor(cities):
     # Remover se quisermos q o neighbor seja random, mas acho q devia ser outro metodo
-    # i = random.randint(0, len(cities) - 3)
-    # j = random.randint(i + 1, len(cities) - 1)
-    i = 0
+    i = random.randint(0, len(cities) - 3)
+    j = random.randint(i + 1, len(cities) - 1)
+    # i = 0
+    print(cities)
+    
     if i == j:
         j = i + 2
+    
     j = j % (len(cities) + 1)
     
     ret = cities.copy()
@@ -44,7 +48,7 @@ def neighbor(cities, j):
     temp_array = temp.copy()
     temp_array.reverse()
     
-    for k in range(j):
+    for k in range(len(temp_array)):
       ret[i + k] = temp_array[k]
     
     return ret
@@ -65,25 +69,25 @@ def stopping_criteria(problem, melhor, T, n_iter):
     return T < 1e-3
 
 def simulated_annealing(
-    problem,
+    problem: TSPProblem,
     decay,
     initial_T,
     make_initial_sol,
-    n_iter,
+    n_iter: int,
     var_n_iter,
     neighbor,
     stopping_criteria):
 
     # Inicializações
-    current = make_initial_sol(problem)
+    current = make_initial_sol(problem.cities)
     best = current
     T = initial_T(problem)
 
 
     # Loop principal // isto é o lagoritmo em si, não se deve alterar substancialmente
     while True:
-        for _ in range(n_iter):
-            proximo = neighbor(corrente)
+        for j in range(n_iter):
+            proximo = neighbor(current)
             d = problem.distance(proximo) - problem.distance(corrente)
 
             if d < 0:
@@ -102,7 +106,8 @@ def simulated_annealing(
         n_iter = var_n_iter(n_iter)
         T = decay(T)
 
-problem = Problem()
+problem = TSPProblem(m)
+
 best = simulated_annealing(
     problem,
     decay,
