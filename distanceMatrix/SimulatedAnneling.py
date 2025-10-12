@@ -4,7 +4,7 @@ import math
 import random
 import DistanceMatrix as dm
 
-cities, distances = dm.read_distance_matrix("distances")
+cities, distances = dm.read_distance_matrix("distanceMatrix/distances copy")
 m = [cities, distances]
 
 class TSPProblem:
@@ -26,7 +26,9 @@ problem = TSPProblem(m)
 
 # Mudar para fazer com subsets das cidades
 def initial_sol(cities):
-    return [random.randint(0, len(cities)) for _ in range(10)]
+    route = cities.copy()
+    random.shuffle(route)
+    return route
 
 # Verificar se e circlar
 # TODO FIX THIS SHIT
@@ -34,8 +36,6 @@ def neighbor(cities):
     # Remover se quisermos q o neighbor seja random, mas acho q devia ser outro metodo
     i = random.randint(0, len(cities) - 3)
     j = random.randint(i + 1, len(cities) - 1)
-    # i = 0
-    print(cities)
     
     if i == j:
         j = i + 2
@@ -87,17 +87,17 @@ def simulated_annealing(
     # Loop principal // isto é o lagoritmo em si, não se deve alterar substancialmente
     while True:
         for j in range(n_iter):
-            proximo = neighbor(current)
-            d = problem.distance(proximo) - problem.distance(corrente)
+            next = neighbor(current)
+            d = problem.distance(next) - problem.distance(current)
 
             if d < 0:
-                corrente = proximo
-                if problem.distance(corrente) < problem.distance(best):
-                    best = corrente
+                current = next
+                if problem.distance(current) < problem.distance(best):
+                    best = current
             else:
                 # Aceita solução pior com probabilidade exp(-d / T)
                 if random.random() < math.exp(-d / T):
-                    corrente = proximo
+                    current = next
         # Critério de paragem
         if stopping_criteria(problem, best, T, n_iter):
             return best
@@ -119,4 +119,4 @@ best = simulated_annealing(
     stopping_criteria = stopping_criteria)
 
 print("Melhor solução encontrada:", best)
-print("Valor da função:", problem.distancia(best))
+print("Valor da função:", problem.distance(best))
