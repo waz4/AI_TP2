@@ -2,10 +2,7 @@
 
 import math
 import random
-import DistanceMatrix as dm
-
-cities, distances = dm.read_distance_matrix("distanceMatrix/distances copy")
-m = [cities, distances]
+import distanceMatrix.DistanceMatrix as dm
 
 class TSPProblem:
     def __init__(self, matrix):
@@ -21,8 +18,6 @@ class TSPProblem:
             total += dm.distance(self.matrix, route[i], route[i+1])
         total += dm.distance(self.matrix, route[-1], route[0])  # volta à origem
         return total
-
-problem = TSPProblem(m)
 
 # Mudar para fazer com subsets das cidades
 def initial_sol(cities):
@@ -70,19 +65,19 @@ def stopping_criteria(problem, melhor, T, n_iter):
 
 def simulated_annealing(
     problem: TSPProblem,
-    decay,
-    initial_T,
-    make_initial_sol,
-    n_iter: int,
-    var_n_iter,
-    neighbor,
-    stopping_criteria):
+    n_iter: int = 100,
+    decay = decay,
+    initial_T = initial_T,
+    make_initial_sol = initial_sol,
+    var_n_iter = var_n_iter,
+    neighbor = neighbor,
+    stopping_criteria = stopping_criteria
+    ):
 
     # Inicializações
     current = make_initial_sol(problem.cities)
     best = current
     T = initial_T(problem)
-
 
     # Loop principal // isto é o lagoritmo em si, não se deve alterar substancialmente
     while True:
@@ -105,18 +100,3 @@ def simulated_annealing(
         # Atualiza temperatura e número de iterações
         n_iter = var_n_iter(n_iter)
         T = decay(T)
-
-problem = TSPProblem(m)
-
-best = simulated_annealing(
-    problem,
-    decay,
-    initial_T,
-    make_initial_sol=initial_sol,
-    n_iter = 100,
-    var_n_iter = var_n_iter,
-    neighbor = neighbor,
-    stopping_criteria = stopping_criteria)
-
-print("Melhor solução encontrada:", best)
-print("Valor da função:", problem.distance(best))
