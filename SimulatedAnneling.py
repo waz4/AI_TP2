@@ -79,7 +79,7 @@ def simulated_annealing(
     best = current
     T = initial_T(problem)
 
-    # Loop principal // isto é o lagoritmo em si, não se deve alterar substancialmente
+    # Loop principal isto é o lagoritmo em si, não se deve alterar substancialmente
     while True:
         for j in range(n_iter):
             next = neighbor(current)
