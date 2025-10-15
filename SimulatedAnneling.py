@@ -4,6 +4,7 @@ import math
 import random
 import distanceMatrix.DistanceMatrix as dm
 
+distance_cache = {}
 class TSPProblem:
     def __init__(self, matrix):
 
@@ -28,18 +29,17 @@ def initial_sol(cities):
 # Verificar se e circlar
 # TODO FIX THIS SHIT
 def neighbor(cities):
+    number_of_cities = len(cities)
+    if number_of_cities < 2:
+        return cities.copy()
+
     # Remover se quisermos q o neighbor seja random, mas acho q devia ser outro metodo
-    i = random.randint(0, len(cities) - 3)
-    j = random.randint(i + 1, len(cities) - 1)
-    
-    if i == j:
-        j = i + 2
-    
-    j = j % (len(cities) + 1)
+    i = random.randint(0, number_of_cities - 2)
+    j = random.randint(i + 1, number_of_cities - 1)
     
     ret = cities.copy()
-    
-    temp = ret[i:j]
+
+    temp = ret[i:j + 1]
     temp_array = temp.copy()
     temp_array.reverse()
     

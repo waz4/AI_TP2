@@ -25,7 +25,7 @@ desired_cities_4 = cities
 
 print(f"TSP cities: {desired_cities_1}")
 
-n_iters = 1000000;
+n_iters = 10000;
 
 print("Problem 1")
 make_and_solve_tspproblem(desired_cities_1, distances, n_iters)
