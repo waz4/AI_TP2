@@ -1,10 +1,11 @@
 import distanceMatrix.DistanceMatrix as dm
 from SimulatedAnneling import TSPProblem, simulated_annealing
 
-def make_and_solve_tspproblem(cities, distances, n_iterations = 100):
-  m = [cities, distances]
+def make_and_solve_tspproblem(desired_cities, n_iterations = 100):
+  m = dm.read_distance_matrix("./distanceMatrix/distances")
+  new_m = dm.create_reduced_matrix(m, desired_cities)
 
-  problem = TSPProblem(m)
+  problem = TSPProblem(new_m)
   best = simulated_annealing(problem, n_iterations)
 
   print("Melhor solução encontrada:", best)
@@ -23,15 +24,16 @@ desired_cities_3 = ["Belmar", "Cerdeira", "Douro", "Encosta", "Freita", "Gonta",
 # E4: todas as cidades
 desired_cities_4 = cities
 
+
 print(f"TSP cities: {desired_cities_1}")
 
-n_iters = 10000;
+n_iters = 1_000;
 
 print("Problem 1")
-make_and_solve_tspproblem(desired_cities_1, distances, n_iters)
+make_and_solve_tspproblem(desired_cities_1, n_iters)
 print("Problem 2")
-make_and_solve_tspproblem(desired_cities_2, distances, n_iters)
+make_and_solve_tspproblem(desired_cities_2, n_iters)
 print("Problem 3")
-make_and_solve_tspproblem(desired_cities_3, distances, n_iters)
+make_and_solve_tspproblem(desired_cities_3, n_iters)
 print("Problem 4")
-make_and_solve_tspproblem(desired_cities_4, distances, n_iters)
+make_and_solve_tspproblem(desired_cities_4, n_iters)

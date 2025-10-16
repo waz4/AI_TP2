@@ -1,0 +1,15 @@
+Total cities: ['Atroeira', 'Belmar', 'Cerdeira', 'Douro', 'Encosta', 'Freita', 'Gonta', 'Horta', 'Infantado', 'Jardim', 'Lourel', 'Monte', 'Nelas', 'Oura', 'Pinhal', 'Quebrada', 'Roseiral', 'Serra', 'Teixoso', 'Ulgueira', 'Vilar']
+TSP cities: ['Atroeira', 'Douro', 'Pinhal', 'Teixoso', 'Ulgueira', 'Vilar']
+
+Problem 1
+Melhor solução encontrada: ['Pinhal', 'Teixoso', 'Douro', 'Ulgueira', 'Vilar', 'Atroeira']
+Valor da função: 700
+Problem 2
+Melhor solução encontrada: ['Lourel', 'Teixoso', 'Cerdeira', 'Ulgueira', 'Douro', 'Infantado', 'Oura', 'Gonta', 'Nelas', 'Serra', 'Roseiral', 'Quebrada']
+Valor da função: 1546
+Problem 3
+Melhor solução encontrada: ['Gonta', 'Oura', 'Encosta', 'Infantado', 'Douro', 'Ulgueira', 'Cerdeira', 'Teixoso', 'Pinhal', 'Freita', 'Lourel', 'Quebrada', 'Monte', 'Roseiral', 'Serra', 'Nelas', 'Horta', 'Belmar']
+Valor da função: 1718
+Problem 4
+Melhor solução encontrada: ['Ulgueira', 'Vilar', 'Infantado', 'Encosta', 'Oura', 'Gonta', 'Belmar', 'Horta', 'Jardim', 'Nelas', 'Serra', 'Roseiral', 'Monte', 'Quebrada', 'Lourel', 'Freita', 'Atroeira', 'Pinhal', 'Teixoso', 'Cerdeira', 'Douro']
+Valor da função: 1868
